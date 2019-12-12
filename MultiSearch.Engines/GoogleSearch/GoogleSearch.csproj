@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>SearchEngines</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.42.0.1369" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MultiSearch.Domain\MultiSearch.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
