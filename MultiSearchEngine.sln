@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearchEngine", "MultiSearchEngine\MultiSearchEngine.csproj", "{449703DE-6CDA-416D-9CFF-0E99010E69C7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleSearch", "MultiSearch.Engines\GoogleSearch\GoogleSearch.csproj", "{F92CFE1F-0726-48B4-8797-E874090B784F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2BAB7FAA-5052-4DD2-9B4F-3516319190F3} = {2BAB7FAA-5052-4DD2-9B4F-3516319190F3}
@@ -23,16 +21,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingSearch", "MultiSearch.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexSearch", "MultiSearch.Engines\YandexSearch\YandexSearch.csproj", "{58AD6301-02DD-4D3E-9198-2795CA84B860}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSearch.DataAccess", "MultiSearch.DataAccess\MultiSearch.DataAccess.csproj", "{6FFE4803-75DB-4755-A97A-B02FB882123B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{449703DE-6CDA-416D-9CFF-0E99010E69C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{449703DE-6CDA-416D-9CFF-0E99010E69C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{449703DE-6CDA-416D-9CFF-0E99010E69C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{449703DE-6CDA-416D-9CFF-0E99010E69C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F92CFE1F-0726-48B4-8797-E874090B784F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F92CFE1F-0726-48B4-8797-E874090B784F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F92CFE1F-0726-48B4-8797-E874090B784F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +49,10 @@ Global
 		{58AD6301-02DD-4D3E-9198-2795CA84B860}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58AD6301-02DD-4D3E-9198-2795CA84B860}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58AD6301-02DD-4D3E-9198-2795CA84B860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFE4803-75DB-4755-A97A-B02FB882123B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFE4803-75DB-4755-A97A-B02FB882123B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFE4803-75DB-4755-A97A-B02FB882123B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFE4803-75DB-4755-A97A-B02FB882123B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
