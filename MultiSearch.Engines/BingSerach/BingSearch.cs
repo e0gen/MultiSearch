@@ -34,16 +34,12 @@ namespace SearchEngines
             {
                 string data = await response.Content.ReadAsStringAsync();
                 BingCustomSearchResponse bingResponse = JsonConvert.DeserializeObject<BingCustomSearchResponse>(data);
-
-                // <iterateResponse>
+                
                 for (int i = 0; i < bingResponse.webPages.value.Length; i++)
                 {
                     var webPage = bingResponse.webPages.value[i];
 
-                    items.Add(new Item(webPage.name, webPage.url, webPage.snippet, "Bing"));
-                    
-                    //Console.WriteLine("displayUrl: " + webPage.displayUrl);
-                    //Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
+                    items.Add(new Item(query, webPage.name, webPage.url, webPage.snippet, searchTag));
                 }
             }
             return items;
@@ -64,10 +60,7 @@ namespace SearchEngines
                 {
                     var webPage = bingResponse.webPages.value[i];
                     
-                    yield return new Item(webPage.name, webPage.url, webPage.snippet, searchTag);
-                    
-                    //Console.WriteLine("displayUrl: " + webPage.displayUrl);
-                    //Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
+                    yield return new Item(query, webPage.name, webPage.url, webPage.snippet, searchTag);
                 }
             }
         }

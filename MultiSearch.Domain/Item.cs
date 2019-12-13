@@ -4,15 +4,15 @@ namespace MultiSearch.Domain
 {
     public class Item
     {
+        public string Queue { get; set; }
+        public string Title { get; set; }
+        public string Link { get; set; }
+        public string Snippet { get; set; }
+        public string Engine { get; set; }
 
-        long Id;
-        public string Title;
-        public string Link;
-        public string Snippet;
-        public string Engine;
-
-        public Item(string title, string link, string snippet, string engine)
+        public Item(string queue, string title, string link, string snippet, string engine)
         {
+            Queue = queue;
             Title = title;
             Link = link;
             Snippet = snippet;

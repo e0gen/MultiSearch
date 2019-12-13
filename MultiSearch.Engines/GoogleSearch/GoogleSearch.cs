@@ -9,6 +9,8 @@ namespace SearchEngines
 {
     public class GoogleSearch : ISearch
     {
+        private const string searchTag = "Google";
+
         private readonly string _apiKey; // = "AIzaSyAt8AkrmkiLVghrcKA3lFh37R79rSG0NsE";
         private readonly string _searchEngineId; // = "003470263288780838160:ty47piyybua";
         private readonly CustomsearchService _customSearchService;// );
@@ -34,7 +36,7 @@ namespace SearchEngines
                 if (paging != null)
                     foreach (var item in paging)
                     {
-                        yield return new Item(item.Title, item.Link, item.Snippet, "Google");
+                        yield return new Item(query, item.Title, item.Link, item.Snippet, searchTag);
                     }
                 count++;
             }
