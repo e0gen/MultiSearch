@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using MultiSearch.Domain.Models;
 
 namespace SearchEngines
 {
@@ -16,7 +17,7 @@ namespace SearchEngines
         private readonly string _apiKey; // = "003470263288780838160:ty47piyybua";
 
         private string uriBase = "https://yandex.com/search/xml?";
-        private string l10n = "en";
+        private string l10n;
         private string sortby;
         private string filter;
         private string groupby;

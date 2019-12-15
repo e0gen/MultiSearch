@@ -33,7 +33,7 @@ namespace MultiSearch.Tests
             var res = sut.Search(_queue).ToList(); ;
 
             Assert.IsNotNull(res);
-            Assert.AreEqual(10, res.Count());
+            Assert.AreEqual(10, res.Count);
         }
 
 
@@ -45,7 +45,7 @@ namespace MultiSearch.Tests
             var res = sut.Search(_queue).ToList(); ;
 
             Assert.IsNotNull(res);
-            Assert.AreEqual(10, res.Count());
+            Assert.AreEqual(10, res.Count);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace MultiSearch.Tests
             var res = sut.SearchAsync(_queue).Result.ToList();
 
             Assert.IsNotNull(res);
-            Assert.AreEqual(10, res.Count());
+            Assert.AreEqual(10, res.Count);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace MultiSearch.Tests
             var res = sut.Search(_queue).Take(10).ToList();
 
             Assert.IsNotNull(res);
-            Assert.AreEqual(10, res.Count());
+            Assert.AreEqual(10, res.Count);
         }
     }
 }

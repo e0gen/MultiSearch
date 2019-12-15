@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MultiSearch.Domain
+﻿namespace MultiSearch.Domain.Models
 {
     public class Item
     {

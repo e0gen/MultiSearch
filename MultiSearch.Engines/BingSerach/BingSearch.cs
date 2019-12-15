@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using MultiSearch.Domain.Models;
 
 namespace SearchEngines
 {
@@ -14,14 +15,13 @@ namespace SearchEngines
 
         private const string searchTag = "Bing";
         private const string uriBase = "https://api.cognitive.microsoft.com/bing/v7.0";
-        private HttpClient client;
+        private readonly HttpClient client;
         public BingSearch(string apiKey)
         {
             _apiKey = apiKey;
             client = new HttpClient();
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //_customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
         }
 
         public async Task<IEnumerable<Item>> SearchAsync(string query)
@@ -35,10 +35,8 @@ namespace SearchEngines
                 string data = await response.Content.ReadAsStringAsync();
                 BingCustomSearchResponse bingResponse = JsonConvert.DeserializeObject<BingCustomSearchResponse>(data);
                 
-                for (int i = 0; i < bingResponse.webPages.value.Length; i++)
+                foreach (var webPage in bingResponse.webPages.value)
                 {
-                    var webPage = bingResponse.webPages.value[i];
-
                     items.Add(new Item(query, webPage.name, webPage.url, webPage.snippet, searchTag));
                 }
             }
@@ -56,10 +54,8 @@ namespace SearchEngines
                 string data = response.Content.ReadAsStringAsync().Result;
                 BingCustomSearchResponse bingResponse = JsonConvert.DeserializeObject<BingCustomSearchResponse>(data);
                 
-                for (int i = 0; i < bingResponse.webPages.value.Length; i++)
+                foreach (var webPage in bingResponse.webPages.value)
                 {
-                    var webPage = bingResponse.webPages.value[i];
-                    
                     yield return new Item(query, webPage.name, webPage.url, webPage.snippet, searchTag);
                 }
             }
