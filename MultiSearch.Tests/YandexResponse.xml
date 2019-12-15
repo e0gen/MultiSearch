@@ -1,4 +1,4 @@
-{<yandexsearch version="1.0">
+<yandexsearch version="1.0">
   <request>
     <query>C#</query>
     <page>0</page>
@@ -245,4 +245,4 @@
       </grouping>
     </results>
   </response>
-</yandexsearch>}
+</yandexsearch>

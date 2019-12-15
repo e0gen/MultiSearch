@@ -1,5 +1,5 @@
 ﻿using MultiSearch.Domain;
-using System;
+using MultiSearch.Domain.Models;
 
 namespace MultiSearch.DataAccess
 {

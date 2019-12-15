@@ -3,10 +3,8 @@ using Moq;
 using MultiSearch.DataAccess;
 using MultiSearch.Domain;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using MultiSearch.Domain.Models;
 
 namespace MultiSearch.Tests
 {
@@ -15,18 +13,18 @@ namespace MultiSearch.Tests
         [Test]
         public void AddItemToDb()
         {
-            var options = new DbContextOptionsBuilder<WorkDBContext>()
+            var options = new DbContextOptionsBuilder<WorkDbContext>()
                 .UseInMemoryDatabase(databaseName: "AddItemsToDb")
                 .Options;
             
-            using (var context = new WorkDBContext(options))
+            using (var context = new WorkDbContext(options))
             {
                 var service = new ItemService(context);
                 service.AddItem(new Item("Sample", "Sample", "Sample", "Sample", "Sample"));
                 context.SaveChanges();
             }
             
-            using (var context = new WorkDBContext(options))
+            using (var context = new WorkDbContext(options))
             {
                 Assert.AreEqual(1, context.Items.Count());
                 Assert.AreEqual("Sample", context.Items.Single().Title);
@@ -36,12 +34,12 @@ namespace MultiSearch.Tests
         [Test]
         public void FindSearches()
         {
-            var options = new DbContextOptionsBuilder<WorkDBContext>()
+            var options = new DbContextOptionsBuilder<WorkDbContext>()
                 .UseInMemoryDatabase(databaseName: "FindSearches")
                 .Options;
 
             // Insert seed data into the database using one instance of the context
-            using (var context = new WorkDBContext(options))
+            using (var context = new WorkDbContext(options))
             {
                 context.Items.Add(new ItemDb("My cat", "AAA", "AAA", "AAA", "Google"));
                 context.Items.Add(new ItemDb("Her cats", "AAA", "AAA", "AAA", "Yandex"));
@@ -50,7 +48,7 @@ namespace MultiSearch.Tests
             }
 
             // Use a clean instance of the context to run the test
-            using (var context = new WorkDBContext(options))
+            using (var context = new WorkDbContext(options))
             {
                 var service = new ItemService(context);
                 var result = service.Find("cat");

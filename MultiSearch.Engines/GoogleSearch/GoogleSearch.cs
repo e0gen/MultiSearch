@@ -4,6 +4,7 @@ using Google.Apis.Services;
 using MultiSearch.Domain;
 using System;
 using System.Collections.Generic;
+using MultiSearch.Domain.Models;
 
 namespace SearchEngines
 {

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace MultiSearch.DataAccess
 {
-    public partial class WorkDBContext : DbContext
+    public class WorkDbContext : DbContext
     {
-        public WorkDBContext()
+        public WorkDbContext()
         {
         }
 
-        public WorkDBContext(DbContextOptions<WorkDBContext> options)
+        public WorkDbContext(DbContextOptions<WorkDbContext> options)
             : base(options)
         {
         }

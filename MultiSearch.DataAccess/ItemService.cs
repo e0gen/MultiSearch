@@ -1,33 +1,41 @@
 ﻿using MultiSearch.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using MultiSearch.Domain.Contracts;
+using MultiSearch.Domain.Models;
 
 namespace MultiSearch.DataAccess
 {
-    public class ItemService
+    public class ItemService : IItemService
     {
-        private readonly WorkDBContext context;
+        private readonly WorkDbContext _context;
 
-        public ItemService(WorkDBContext context)
+        public ItemService(WorkDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
         public void AddItem(Item item)
         {
             var itemDb = new ItemDb(item.Queue, item.Title, item.Link, item.Snippet, item.Engine);
-            context.Items.Add(itemDb);
+            _context.Items.Add(itemDb);
         }
 
         public void SaveChanges()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public async Task<IList<Item>> ItemsAsync()
+        {
+            return await _context.Items
+                .Select(x => new Item(x.Queue, x.Title, x.Link, x.Snippet, x.Engine)).ToListAsync();
         }
 
         public IList<Item> GetItems(int start, int count)
         {
-            return context.Items
+            return _context.Items
                 .Select(x => new Item(x.Queue, x.Title, x.Link, x.Snippet, x.Engine))
                 .Skip(start)
                 .Take(count)
@@ -36,7 +44,7 @@ namespace MultiSearch.DataAccess
 
         public IEnumerable<Item> Find(string term)
         {
-            return context.Items
+            return _context.Items
                 .Where(b => b.Queue.Contains(term))
                 .OrderBy(b => b.ItemDbId)
                 .ToList();
