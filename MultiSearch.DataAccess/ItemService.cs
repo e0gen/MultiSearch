@@ -27,20 +27,31 @@ namespace MultiSearch.DataAccess
             _context.SaveChanges();
         }
 
-        public async Task<IList<Item>> ItemsAsync()
+        public async Task<IList<Item>> GetItemsAsync()
         {
-            return await _context.Items
-                .Select(x => new Item(x.Queue, x.Title, x.Link, x.Snippet, x.Engine)).ToListAsync();
+            return await GetItems()
+                .AsNoTracking()
+                .ToListAsync();
         }
 
-        public IList<Item> GetItems(int start, int count)
+        public async Task<IList<Item>> GetItemsAsync(string filter)
+        {
+            return await GetItems()
+                .Where(x => x.Queue.Contains(filter))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        private IQueryable<Item> GetItems()
         {
             return _context.Items
-                .Select(x => new Item(x.Queue, x.Title, x.Link, x.Snippet, x.Engine))
-                .Skip(start)
-                .Take(count)
-                .ToList();
+                .Select(x => new Item(x.Queue, x.Title, x.Link, x.Snippet, x.Engine));
         }
+
+        //private IQueryable<Item> FindItems(this IQueryable<Item> source, string filter)
+        //{
+        //    return source.Where(x => x.Queue.Contains(filter));
+        //}
 
         public IEnumerable<Item> Find(string term)
         {

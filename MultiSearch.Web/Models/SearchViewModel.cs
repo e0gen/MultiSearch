@@ -6,20 +6,27 @@ using System.Threading.Tasks;
 
 namespace MultiSearch.Web.Models
 {
-    public class SearchViewModel
+    public class SearchViewModel : BaseViewModel
     {
-        //private readonly RazorPagesMovie.Data.RazorPagesMovieContext _context;
-
-        public SearchViewModel()//RazorPagesMovie.Data.RazorPagesMovieContext context)
+        public SearchViewModel() : base()
         {
-            //_context = context;
+            Items = new List<Item>();
         }
 
         public IList<Item> Items { get; set; }
+        public string Queue { get; set; }
 
-        public async Task OnGetAsync()
+        public override string Title
         {
-            //Movie = await _context.Movie.ToListAsync();
+            get
+            {
+                return string.IsNullOrEmpty(Queue) ? "Search" : $"{Queue}";
+            }
         }
+
+        //public async Task OnGetAsync()
+        //{
+        //    //Movie = await _context.Movie.ToListAsync();
+        //}
     }
 }

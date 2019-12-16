@@ -1,0 +1,27 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+@using (Html.BeginForm("Search", "Search", FormMethod.Get, new { @class = "row" }))
+{
+    //@Html.TextBox("q", null, new { style = "width:450px" })
+    <input type="search" style="width:450px; margin-top:16px;" placeholder="Search with fastest engine" name="q">
+    <button type="submit" class="button button-primary">Search</button>
+}
+
+@foreach (var item in Model.Items)
+{
+    <div class="row">
+        <div class="one columns"><b>@Html.DisplayFor(modelItem => item.Engine)</b></div>
+        <div class="eleven columns">
+            <a href="@item.Link">
+                <b>@Html.DisplayFor(modelItem => item.Title)</b><br>
+            </a>
+            <span style="color: green;">
+                @Html.DisplayFor(modelItem => item.Link)
+            </span>
+            <p>@Html.DisplayFor(modelItem => item.Snippet)</p>
+        </div>
+    </div>
+}
+

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using MultiSearch.Domain.Models;
+using MultiSearch.Domain.Contracts;
 
 namespace SearchEngines
 {
