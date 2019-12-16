@@ -1,0 +1,46 @@
+﻿@model  HistoryViewModel
+@{
+    ViewData["Title"]="Search History" ;
+ }
+<form asp-action="Index" method="get" style="margin-top:16px;">
+    <div>
+        <p>
+            Find by queue: <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="button" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+<table class="u-full-width">
+    <thead>
+        <tr>
+            <th>Queue</th>
+            <th>Title</th>
+            <th>Link</th>
+            <th>Snippet</th>
+            <th>Engine</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Queue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td class="break-all">
+                    @Html.DisplayFor(modelItem => item.Link)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Snippet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Engine)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

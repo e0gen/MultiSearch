@@ -29,22 +29,18 @@ namespace MultiSearch.Web
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<WorkDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("RazorPagesMovieContext")));
+            //    options.UseSqlServer(Configuration.GetConnectionString("RealDb")));
             services.AddDbContext<WorkDbContext>(options =>
                 options.UseInMemoryDatabase("VirtualDb"));
 
             services.AddScoped<IItemService, ItemService>();
-            //services.AddScoped<ISearch, GoogleSearch>();
 
-            //services.AddSingleton<ISearch, GoogleSearch>(_ =>
-            //{
-            //    return new GoogleSearch("AIzaSyAt8AkrmkiLVghrcKA3lFh37R79rSG0NsE", "003470263288780838160:ty47piyybua");
-            //});
+            services.AddSingleton<ISearch, GoogleSearch>(_ =>
+                new GoogleSearch("AIzaSyAt8AkrmkiLVghrcKA3lFh37R79rSG0NsE", "003470263288780838160:ty47piyybua"));
             services.AddSingleton<ISearch, BingSearch>(_ =>
-            {
-                return new BingSearch("4202bcd3d7c546debedbc8f308def029");
-            });
-            //services.AddSingleton<ISearch, YandexSearch>();
+                new BingSearch("4202bcd3d7c546debedbc8f308def029"));
+            services.AddSingleton<ISearch, YandexSearch>(_ =>
+                new YandexSearch("c3p0r2d2c3p0", "03.997239423:21e25da813a07a4212d0768ef29f0918"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -59,11 +55,7 @@ namespace MultiSearch.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseMvc();
