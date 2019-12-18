@@ -10,6 +10,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
@@ -20,9 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\MultiSearch.DataAccess\MultiSearch.DataAccess.csproj" />
     <ProjectReference Include="..\MultiSearch.Domain\MultiSearch.Domain.csproj" />
-    <ProjectReference Include="..\MultiSearch.Engines\BingSerach\BingSearch.csproj" />
-    <ProjectReference Include="..\MultiSearch.Engines\GoogleSearch\GoogleSearch.csproj" />
-    <ProjectReference Include="..\MultiSearch.Engines\YandexSearch\YandexSearch.csproj" />
+    <ProjectReference Include="..\MultiSearch.Engines\BingEngine\BingEngine.csproj" />
+    <ProjectReference Include="..\MultiSearch.Engines\GoogleEngine\GoogleEngine.csproj" />
+    <ProjectReference Include="..\MultiSearch.Engines\MultiEngine\MultiEngine.csproj" />
+    <ProjectReference Include="..\MultiSearch.Engines\YandexEngine\YandexEngine.csproj" />
   </ItemGroup>
 
 </Project>

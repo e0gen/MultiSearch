@@ -8,7 +8,7 @@ namespace MultiSearch.Web.Models
 {
     public class HistoryViewModel : BaseViewModel
     {
-        public IList<Item> Items { get; set; }
+        public IList<WebPage> Items { get; set; }
         public string CurrentFilter { get; set; }
         public int PageSize { get; set; }
         public int PageNumber { get; set; }

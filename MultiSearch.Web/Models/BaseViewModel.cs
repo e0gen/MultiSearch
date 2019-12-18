@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MultiSearch.Web.Models
 {
-    public class BaseViewModel
+    public abstract class BaseViewModel
     {
         public virtual string Title
         {

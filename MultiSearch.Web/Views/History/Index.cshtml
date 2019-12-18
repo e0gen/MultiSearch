@@ -31,8 +31,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-                <td class="break-all">
+                <td  class="break-all" >
+                    <a href="@item.Link">
                     @Html.DisplayFor(modelItem => item.Link)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Snippet)

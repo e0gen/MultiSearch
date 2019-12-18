@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespace>SearchEngines</RootNamespace>
+    <RootNamespace>MultiSearch.Engines</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.42.0.1369" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.17" />
   </ItemGroup>
 
   <ItemGroup>

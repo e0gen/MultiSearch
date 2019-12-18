@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.181
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleSearch", "MultiSearch.Engines\GoogleSearch\GoogleSearch.csproj", "{F92CFE1F-0726-48B4-8797-E874090B784F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleEngine", "MultiSearch.Engines\GoogleEngine\GoogleEngine.csproj", "{F92CFE1F-0726-48B4-8797-E874090B784F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2BAB7FAA-5052-4DD2-9B4F-3516319190F3} = {2BAB7FAA-5052-4DD2-9B4F-3516319190F3}
 	EndProjectSection
@@ -14,16 +14,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Tests", "MultiS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MultiSearch.Engines", "MultiSearch.Engines", "{67EC8F67-06D8-449C-AB04-59A30740F0C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingSearch", "MultiSearch.Engines\BingSerach\BingSearch.csproj", "{29C60305-80C6-4FAF-B339-BDA7B27BF459}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingEngine", "MultiSearch.Engines\BingEngine\BingEngine.csproj", "{29C60305-80C6-4FAF-B339-BDA7B27BF459}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2BAB7FAA-5052-4DD2-9B4F-3516319190F3} = {2BAB7FAA-5052-4DD2-9B4F-3516319190F3}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexSearch", "MultiSearch.Engines\YandexSearch\YandexSearch.csproj", "{58AD6301-02DD-4D3E-9198-2795CA84B860}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexEngine", "MultiSearch.Engines\YandexEngine\YandexEngine.csproj", "{58AD6301-02DD-4D3E-9198-2795CA84B860}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.DataAccess", "MultiSearch.DataAccess\MultiSearch.DataAccess.csproj", "{6FFE4803-75DB-4755-A97A-B02FB882123B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSearch.Web", "MultiSearch.Web\MultiSearch.Web.csproj", "{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Web", "MultiSearch.Web\MultiSearch.Web.csproj", "{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiEngine", "MultiSearch.Engines\MultiEngine\MultiEngine.csproj", "{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{F92CFE1F-0726-48B4-8797-E874090B784F} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
 		{29C60305-80C6-4FAF-B339-BDA7B27BF459} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
 		{58AD6301-02DD-4D3E-9198-2795CA84B860} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
+		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F35A084-8ACB-470B-9610-83C2659C0F83}

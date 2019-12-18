@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespace>SearchEngines</RootNamespace>
+    <RootNamespace>MultiSearch.Engines</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

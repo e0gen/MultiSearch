@@ -10,10 +10,10 @@ namespace MultiSearch.Web.Models
     {
         public SearchViewModel() : base()
         {
-            Items = new List<Item>();
+            Items = new List<WebPage>();
         }
 
-        public IList<Item> Items { get; set; }
+        public IList<WebPage> Items { get; set; }
         public string Queue { get; set; }
 
         public override string Title
@@ -23,10 +23,5 @@ namespace MultiSearch.Web.Models
                 return string.IsNullOrEmpty(Queue) ? "Search" : $"{Queue}";
             }
         }
-
-        //public async Task OnGetAsync()
-        //{
-        //    //Movie = await _context.Movie.ToListAsync();
-        //}
     }
 }
