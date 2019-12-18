@@ -13,23 +13,21 @@ namespace MultiSearch.DataAccess
         {
         }
 
-        public virtual DbSet<ItemDb> Items { get; set; }
+        public virtual DbSet<WebPageEntity> WebPages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFProviders.InMemory;Trusted_Connection=True;ConnectRetryCount=0");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=MultiSearchDB; Integrated Security = true;");
             }
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //    optionsBuilder.UseSqlServer("Server=SQL2\\MAIN;Database=WorkDB;Trusted_Connection=True;");
-            //}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<WebPageEntity>()
+                .Property(b => b.WebPageEntityId)
+                .IsRequired();
         }
     }
 }

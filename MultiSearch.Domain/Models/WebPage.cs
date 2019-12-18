@@ -1,6 +1,6 @@
 ﻿namespace MultiSearch.Domain.Models
 {
-    public class Item
+    public class WebPage
     {
         public string Queue { get; set; }
         public string Title { get; set; }
@@ -8,7 +8,7 @@
         public string Snippet { get; set; }
         public string Engine { get; set; }
 
-        public Item(string queue, string title, string link, string snippet, string engine)
+        public WebPage(string queue, string title, string link, string snippet, string engine)
         {
             Queue = queue;
             Title = title;

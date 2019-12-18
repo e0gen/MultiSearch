@@ -13,9 +13,9 @@ namespace MultiSearch.Web.Controllers
     [Route("History")]
     public class HistoryController : Controller
     {
-        private readonly IItemService _itemService;
+        private readonly IWebPageService _itemService;
 
-        public HistoryController(IItemService itemService)
+        public HistoryController(IWebPageService itemService)
         {
             _itemService = itemService;
         }
@@ -26,8 +26,8 @@ namespace MultiSearch.Web.Controllers
             var vm = new HistoryViewModel() { PageNumber = pageNumber ?? 1, PageSize = 10 };
 
             vm.Items = (!string.IsNullOrEmpty(searchString)) ?
-                await _itemService.GetItemsAsync(searchString) :
-                await _itemService.GetItemsAsync();
+                await _itemService.GetWebPagesAsync(searchString) :
+                await _itemService.GetWebPagesAsync();
 
             return View(vm);
         }
