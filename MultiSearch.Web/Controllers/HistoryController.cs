@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiSearch.Domain.Contracts;
-using MultiSearch.Domain.Models;
 using MultiSearch.Web.Models;
+using System.Threading.Tasks;
 
 namespace MultiSearch.Web.Controllers
 {
@@ -19,15 +14,19 @@ namespace MultiSearch.Web.Controllers
         {
             _itemService = itemService;
         }
-        
+
         [HttpGet("Index")]
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            var vm = new HistoryViewModel() { PageNumber = pageNumber ?? 1, PageSize = 10 };
+            var vm = new HistoryViewModel
+            {
+                PageNumber = pageNumber ?? 1,
+                PageSize = 10,
+                Items = (!string.IsNullOrEmpty(searchString))
+                    ? await _itemService.GetWebPagesAsync(searchString)
+                    : await _itemService.GetWebPagesAsync()
+            };
 
-            vm.Items = (!string.IsNullOrEmpty(searchString)) ?
-                await _itemService.GetWebPagesAsync(searchString) :
-                await _itemService.GetWebPagesAsync();
 
             return View(vm);
         }

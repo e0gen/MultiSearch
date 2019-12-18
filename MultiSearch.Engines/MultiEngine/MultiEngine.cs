@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Linq;
+﻿using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
-using MultiSearch.Domain.Contracts;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MultiSearch.Engines
 {
@@ -29,10 +28,10 @@ namespace MultiSearch.Engines
                     var tmpResult = searcher.Search(query, page).ToList();
                     watch.Stop();
                     var elapsed = watch.ElapsedMilliseconds;
-                    
+
                     lock (lockObj)
                     {
-                        if(elapsed < minElapsed)
+                        if (elapsed < minElapsed)
                         {
                             minElapsed = elapsed;
                             results = tmpResult;

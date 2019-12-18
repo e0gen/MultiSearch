@@ -1,10 +1,10 @@
 ﻿using Google.Apis.Customsearch.v1;
 using Google.Apis.Customsearch.v1.Data;
 using Google.Apis.Services;
-using System.Web;
-using System.Collections.Generic;
-using MultiSearch.Domain.Models;
 using MultiSearch.Domain.Contracts;
+using MultiSearch.Domain.Models;
+using System.Collections.Generic;
+using System.Web;
 
 
 namespace MultiSearch.Engines
@@ -28,11 +28,10 @@ namespace MultiSearch.Engines
         {
             var listRequest = _customSearchService.Cse.List(query);
             listRequest.Cx = _searchEngineId;
-            
-            IList<Result> paging = new List<Result>();
+
             page--;
             listRequest.Start = page * 10 + 1;
-            paging = listRequest.Execute().Items;
+            IList<Result> paging = listRequest.Execute().Items;
             if (paging != null)
                 foreach (var item in paging)
                 {

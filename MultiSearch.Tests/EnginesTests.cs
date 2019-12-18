@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
 using MultiSearch.Engines;
 using NUnit.Framework;
-using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace MultiSearch.Tests
 {
@@ -43,9 +42,9 @@ namespace MultiSearch.Tests
         [Test]
         public void YandexEngineApi()
         {
-            ISearchEngine sut = new YandexEngineHtml();
+            ISearchEngine sut = new YandexEngineApi(_yandexApiUser, _yandexApiKey);
 
-            var res = sut.Search(_queue).ToList(); ;
+            var res = sut.Search(_queue).ToList();
 
             Assert.AreEqual(10, res.Count);
         }
@@ -55,8 +54,8 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new YandexEngineHtml();
 
-            var res = sut.Search(_queue).ToList(); ;
-            
+            var res = sut.Search(_queue).ToList();
+
             Assert.AreEqual(10, res.Count);
         }
 
@@ -66,7 +65,7 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new BingEngineApi(_bingApiKey);
 
-            var res = sut.Search(_queue).ToList(); ;
+            var res = sut.Search(_queue).ToList();
 
             Assert.AreEqual(10, res.Count);
         }
@@ -76,8 +75,8 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new BingEngineApi(_bingApiKey);
 
-            var res = sut.Search(_queue).ToList(); ;
-            
+            var res = sut.Search(_queue).ToList();
+
             Assert.AreEqual(10, res.Count);
         }
 
@@ -87,7 +86,7 @@ namespace MultiSearch.Tests
             ISearchEngine sut = new GoogleEngineApi(_googleApiKey, _googleSearchEngineId);
 
             var res = sut.Search(_queue).ToList();
-            
+
             Assert.AreEqual(10, res.Count);
         }
 
@@ -97,7 +96,7 @@ namespace MultiSearch.Tests
             ISearchEngine sut = new GoogleEngineHtml();
 
             var res = sut.Search(_queue).ToList();
-            
+
             Assert.AreEqual(10, res.Count);
         }
 
@@ -128,15 +127,12 @@ namespace MultiSearch.Tests
                 .Callback(() => Thread.Sleep(elapsed2))
                 .Returns(result2);
 
-            ISearchEngine sut = new MultiEngine(new ISearchEngine[] { searcher1.Object, searcher2.Object });
+            ISearchEngine sut = new MultiEngine(new[] { searcher1.Object, searcher2.Object });
 
             var res = sut.Search(_queue).ToList();
-            
-            if (elapsed1 < elapsed2)
-                Assert.AreEqual(result1, res);
-            else
-                Assert.AreEqual(result2, res);
-            
+
+            var expResult = elapsed1 < elapsed2 ? result1 : result2;
+            Assert.AreEqual(expResult, res);
         }
     }
 }

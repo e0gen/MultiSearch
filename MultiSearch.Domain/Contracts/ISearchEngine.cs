@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MultiSearch.Domain.Models;
+﻿using MultiSearch.Domain.Models;
+using System.Collections.Generic;
 
 namespace MultiSearch.Domain.Contracts
 {
