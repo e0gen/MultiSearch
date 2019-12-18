@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using MultiSearch.Domain.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MultiSearch.Domain.Models;
 
 namespace MultiSearch.Domain.Contracts
 {
@@ -11,6 +10,5 @@ namespace MultiSearch.Domain.Contracts
         Task SaveChangesAsync();
         Task<IList<WebPage>> GetWebPagesAsync();
         Task<IList<WebPage>> GetWebPagesAsync(string filter);
-        //IQueryable<Item> GetItems();
     }
 }

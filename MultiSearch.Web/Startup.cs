@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,7 +24,7 @@ namespace MultiSearch.Web
             services.AddDbContext<WorkDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("MultiSearchDB")));
 
-           //DataAccess provider
+            //DataAccess provider
             services.AddScoped<IWebPageService, WebPageService>();
 
             var enginesSettingsSection = Configuration.GetSection("EnginesApiSettings");
@@ -48,7 +42,7 @@ namespace MultiSearch.Web
             services.AddSingleton<BingEngineHtml>();
             services.AddSingleton<GoogleEngineHtml>();
 
-            //Multi engine. Inject the desired competitioning engines
+            //Multi engine. Inject the desired engines
             services.AddSingleton<ISearchEngine>(provider =>
                 new MultiEngine(new ISearchEngine[] {
                     provider.GetRequiredService<YandexEngineHtml>(),
@@ -59,7 +53,7 @@ namespace MultiSearch.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

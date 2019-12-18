@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MultiSearch.DataAccess.Entities;
 
 namespace MultiSearch.DataAccess
 {

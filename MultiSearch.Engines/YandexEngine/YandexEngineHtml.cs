@@ -1,10 +1,10 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using MultiSearch.Domain.Contracts;
+using MultiSearch.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using MultiSearch.Domain.Models;
-using MultiSearch.Domain.Contracts;
-using HtmlAgilityPack;
 using System.Web;
 
 namespace MultiSearch.Engines
@@ -14,11 +14,11 @@ namespace MultiSearch.Engines
         private const string searchTag = "Yandex Html";
         private const string uriBase = "http://yandex.ru";
 
-        private readonly HttpClient client;
-        
+        private readonly HttpClient _client;
+
         public YandexEngineHtml()
         {
-            client = new HttpClient();
+            _client = new HttpClient();
         }
 
         public string SearchUri(string query, int page)
@@ -28,17 +28,16 @@ namespace MultiSearch.Engines
 
         public IEnumerable<WebPage> Search(string query, int page)
         {
-            HttpResponseMessage response = client.GetAsync(SearchUri(query, page)).Result;
+            HttpResponseMessage response = _client.GetAsync(SearchUri(query, page)).Result;
             if (response.IsSuccessStatusCode)
             {
                 string data = response.Content.ReadAsStringAsync().Result;
 
                 var doc = new HtmlDocument();
-                HtmlNodeCollection nodes;
                 doc.LoadHtml(data);
 
-                nodes = doc.DocumentNode.SelectNodes("//li[@class='serp-item']");
-                
+                HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//li[@class='serp-item']");
+
                 foreach (HtmlNode node in nodes)
                 {
                     var titleNode = node.Descendants("div").First(x => x.Attributes["class"].Value.Contains("organic__url-text"));

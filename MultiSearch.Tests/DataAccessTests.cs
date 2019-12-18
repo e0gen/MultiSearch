@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Moq;
 using MultiSearch.DataAccess;
+using MultiSearch.DataAccess.Entities;
+using MultiSearch.Domain.Models;
 using NUnit.Framework;
 using System.Linq;
-using MultiSearch.Domain.Models;
 using System.Threading.Tasks;
 
 namespace MultiSearch.Tests
@@ -17,14 +17,14 @@ namespace MultiSearch.Tests
             var options = new DbContextOptionsBuilder<WorkDbContext>()
                 .UseInMemoryDatabase(databaseName: "AddItemsToDb")
                 .Options;
-            
+
             using (var context = new WorkDbContext(options))
             {
                 var service = new WebPageService(context);
                 await service.AddWebPageAsync(new WebPage("Sample", "Sample", "Sample", "Sample", "Sample"));
                 await context.SaveChangesAsync();
             }
-            
+
             using (var context = new WorkDbContext(options))
             {
                 Assert.AreEqual(1, context.WebPages.Count());
@@ -53,7 +53,7 @@ namespace MultiSearch.Tests
             {
                 var service = new WebPageService(context);
                 var result = await service.GetWebPagesAsync("cat");
-                Assert.AreEqual(2, result.Count());
+                Assert.AreEqual(2, result.Count);
             }
         }
     }

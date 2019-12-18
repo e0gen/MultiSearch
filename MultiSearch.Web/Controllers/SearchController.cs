@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
 using MultiSearch.Web.Models;
-using MultiSearch.Engines;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MultiSearch.Web.Controllers
 {
@@ -23,7 +19,7 @@ namespace MultiSearch.Web.Controllers
             _itemService = webPageService;
         }
 
-        
+
         public IActionResult Index()
         {
             return View("Search", new SearchViewModel());
@@ -36,13 +32,11 @@ namespace MultiSearch.Web.Controllers
 
             var vm = new SearchViewModel() { Queue = q };
 
-            var results = new List<WebPage>();
+            List<WebPage> results = _searchEngine.Search(q).ToList();
 
-            results.AddRange(_searchEngine.Search(q));
-
-            foreach(var item in results)
+            foreach (var wp in results)
             {
-                await _itemService.AddWebPageAsync(item);
+                await _itemService.AddWebPageAsync(wp);
             }
             await _itemService.SaveChangesAsync();
 
