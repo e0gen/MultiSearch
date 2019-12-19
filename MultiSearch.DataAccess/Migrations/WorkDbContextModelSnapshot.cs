@@ -28,7 +28,7 @@ namespace MultiSearch.DataAccess.Migrations
 
                     b.Property<string>("Link");
 
-                    b.Property<string>("Queue");
+                    b.Property<string>("Query");
 
                     b.Property<string>("Snippet");
 

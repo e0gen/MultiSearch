@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Web;
 
 namespace MultiSearch.Engines
 {
@@ -38,14 +39,22 @@ namespace MultiSearch.Engines
                 doc.LoadHtml(data);
                 HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//div[@class='g']");
 
-                foreach (HtmlNode node in nodes)
-                {
-                    var titleNode = node.Descendants("h3").First(x => x.Attributes["class"].Value.Contains("LC20lb"));
-                    var linkNode = node.Descendants("a").First();
-                    var snippetNode = node.Descendants("span").Where(x => x.Attributes.Count > 0).First(x => x.Attributes["class"].Value.Contains("st"));
+                if (nodes != null)
+                    foreach (HtmlNode node in nodes)
+                    {
+                        var titleNode = node.Descendants("h3").Where(x => x.Attributes.Contains("class"))
+                            .FirstOrDefault(x => x.Attributes["class"].Value.Contains("LC20lb"));
+                        var linkNode = node.Descendants("a")
+                            .FirstOrDefault();
+                        var snippetNode = node.Descendants("span").Where(x => x.Attributes.Contains("class"))
+                            .FirstOrDefault(x => x.Attributes["class"].Value.Contains("st"));
 
-                    yield return new WebPage(query, titleNode?.InnerText, linkNode?.Attributes["href"].Value, snippetNode?.InnerText, searchTag);
-                }
+                        var tiltle = HttpUtility.HtmlDecode(titleNode?.InnerText);
+                        var link = HttpUtility.HtmlDecode(linkNode?.Attributes["href"].Value);
+                        var snippet = HttpUtility.HtmlDecode(snippetNode?.InnerText);
+
+                        yield return new WebPage(query, tiltle, link, snippet, searchTag);
+                    }
             }
         }
     }

@@ -29,6 +29,7 @@ namespace MultiSearch.Web
 
             var enginesSettingsSection = Configuration.GetSection("EnginesApiSettings");
             var enginesSettings = enginesSettingsSection.Get<EnginesApiSettings>();
+
             //Api versions of engines requiring setting up configuration
             services.AddSingleton(_ =>
                 new GoogleEngineApi(enginesSettings.GoogleKey, enginesSettings.GoogleSearchEngineId));
