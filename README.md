@@ -1,21 +1,20 @@
 # MultiSearch Engine
 
-Simple designed search engine application with encapsulating calls to popular search engines(Yandex, Google, Bing) and show search result of the fastest one.
-Application also keep search history with filtration.
+Simple designed search engine application which encapsulate requests to popular search engines(Yandex, Google and Bing) and display result of the fastest one.
+Application also keeps search history with filtration.
 
-## Getting Started
+## Setup
 
-Setup connection string to you database server in **appsettings.json**
+Set the connection string to you database server in **appsettings.json**
 Data access module uses code first aproach so to initilize data base run command in package manager console:
 ```
 PM> update-database
 ```
 
-### Prerequisites
+### API versions
 
-The project contains implemetation of 3 search engines, each of which has 2 implementation options: through HTML parsing and access to the search engine API
-Ane 
-By default, application resolve HTML versions, that do not require additional configuration.
+The project contains implementation of 3 search engines, each of which has 2 implementation options: through HTML parsing and with direct access to the search engine API.
+By default, application resolves  HTML versions, which do not require additional configuration.
 To turn on the api version, configure the keys in the configuration file and replace search engine resolving in composition root (Statup.cs)
 
 ```
@@ -36,7 +35,7 @@ services.AddSingleton<ISearchEngine>(provider =>
 
 ### Engine expanding
 
-List of supported search engines can easy expanded with additional implemetation of ISearchEngine interface.
+List of supported search engines can easy expanded with additional implementation of ISearchEngine interface.
 
 Include it in composition root:
 ```
@@ -50,8 +49,6 @@ services.AddSingleton<ISearchEngine>(provider =>
                     provider.GetRequiredService<CustomEngine>(),
                     }));
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
