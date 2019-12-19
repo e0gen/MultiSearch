@@ -38,18 +38,22 @@ namespace MultiSearch.Engines
 
                 HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//li[@class='serp-item']");
 
-                foreach (HtmlNode node in nodes)
-                {
-                    var titleNode = node.Descendants("div").First(x => x.Attributes["class"].Value.Contains("organic__url-text"));
-                    var linkNode = node.Descendants("a").First(x => x.Attributes["class"].Value.Contains("link_theme_normal"));
-                    var snippetNode = node.Descendants("span").FirstOrDefault(x => x.Attributes["class"].Value.Contains("extended-text__short"));
+                if (nodes != null)
+                    foreach (HtmlNode node in nodes)
+                    {
+                        var titleNode = node.Descendants("div").Where(x => x.Attributes.Contains("class"))
+                            .FirstOrDefault(x => x.Attributes["class"].Value.Contains("organic__url-text"));
+                        var linkNode = node.Descendants("a").Where(x => x.Attributes.Contains("class"))
+                            .FirstOrDefault(x => x.Attributes["class"].Value.Contains("link_theme_normal"));
+                        var snippetNode = node.Descendants("span")
+                            .FirstOrDefault(x => x.Attributes["class"].Value.Contains("extended-text__short"));
 
-                    var tiltle = HttpUtility.HtmlDecode(titleNode?.InnerText);
-                    var link = HttpUtility.HtmlDecode(linkNode?.Attributes["href"].Value);
-                    var snippet = HttpUtility.HtmlDecode(snippetNode?.InnerText);
+                        var tiltle = HttpUtility.HtmlDecode(titleNode?.InnerText);
+                        var link = HttpUtility.HtmlDecode(linkNode?.Attributes["href"].Value);
+                        var snippet = HttpUtility.HtmlDecode(snippetNode?.InnerText);
 
-                    yield return new WebPage(query, tiltle, link, snippet, searchTag);
-                }
+                        yield return new WebPage(query, tiltle, link, snippet, searchTag);
+                    }
             }
         }
     }

@@ -11,12 +11,12 @@ namespace MultiSearch.Web.Controllers
     [Route("")]
     public class SearchController : Controller
     {
-        private readonly IWebPageService _itemService;
+        private readonly IWebPageService _webPageService;
         private readonly ISearchEngine _searchEngine;
         public SearchController(ISearchEngine searchEngine, IWebPageService webPageService)
         {
             _searchEngine = searchEngine;
-            _itemService = webPageService;
+            _webPageService = webPageService;
         }
 
 
@@ -30,17 +30,17 @@ namespace MultiSearch.Web.Controllers
         {
             if (string.IsNullOrEmpty(q)) return View(new SearchViewModel());
 
-            var vm = new SearchViewModel() { Queue = q };
+            var vm = new SearchViewModel() { Query = q };
 
             List<WebPage> results = _searchEngine.Search(q).ToList();
 
             foreach (var wp in results)
             {
-                await _itemService.AddWebPageAsync(wp);
+                await _webPageService.AddWebPageAsync(wp);
             }
-            await _itemService.SaveChangesAsync();
+            await _webPageService.SaveChangesAsync();
 
-            vm.Items = results;
+            vm.WebPages = results;
             return View(vm);
         }
     }

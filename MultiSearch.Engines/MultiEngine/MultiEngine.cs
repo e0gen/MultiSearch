@@ -25,13 +25,15 @@ namespace MultiSearch.Engines
                 (searcher) =>
                 {
                     var watch = System.Diagnostics.Stopwatch.StartNew();
-                    var tmpResult = searcher.Search(query, page).ToList();
+                    var tmpResult = searcher.Search(query, page).Take(10).ToList();
+                    if (tmpResult.Count < 10)
+                        tmpResult.AddRange(searcher.Search(query, page++).Take(10 - tmpResult.Count));
                     watch.Stop();
                     var elapsed = watch.ElapsedMilliseconds;
 
                     lock (lockObj)
                     {
-                        if (elapsed < minElapsed)
+                        if (elapsed < minElapsed && tmpResult.Count > 0)
                         {
                             minElapsed = elapsed;
                             results = tmpResult;

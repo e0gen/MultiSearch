@@ -5,16 +5,16 @@
 <form asp-action="Index" method="get" style="margin-top:16px;">
     <div>
         <p>
-            Find by queue: <input type="text" name="SearchString" value="@Model.CurrentFilter" />
-            <input type="submit" value="Search" class="button" /> |
-            <a asp-action="Index">Back to Full List</a>
+            Find by query: <input type="text" name="CurrentFilter" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="button" style="padding-top: 1px;"/> |
+            <a asp-action="Index">Clear filter</a>
         </p>
     </div>
 </form>
 <table class="u-full-width">
     <thead>
         <tr>
-            <th>Queue</th>
+            <th>Query</th>
             <th>Title</th>
             <th>Link</th>
             <th>Snippet</th>
@@ -22,25 +22,25 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Items)
+        @foreach (var wp in Model.WebPages)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Queue)
+                    @Html.DisplayFor(modelItem => wp.Query)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => wp.Title)
                 </td>
                 <td  class="break-all" >
-                    <a href="@item.Link">
-                    @Html.DisplayFor(modelItem => item.Link)
+                    <a href="@wp.Link">
+                    @Html.DisplayFor(modelItem => wp.Link)
                     </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Snippet)
+                    @Html.DisplayFor(modelItem => wp.Snippet)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Engine)
+                    @Html.DisplayFor(modelItem => wp.Engine)
                 </td>
             </tr>
         }

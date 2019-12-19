@@ -8,23 +8,24 @@ namespace MultiSearch.Web.Controllers
     [Route("History")]
     public class HistoryController : Controller
     {
-        private readonly IWebPageService _itemService;
+        private readonly IWebPageService _webPageService;
 
-        public HistoryController(IWebPageService itemService)
+        public HistoryController(IWebPageService webPageService)
         {
-            _itemService = itemService;
+            _webPageService = webPageService;
         }
 
         [HttpGet("Index")]
-        public async Task<IActionResult> Index(string searchString, int? pageNumber)
+        public async Task<IActionResult> Index(string currentFilter, int? pageNumber)
         {
             var vm = new HistoryViewModel
             {
+                CurrentFilter = currentFilter,
                 PageNumber = pageNumber ?? 1,
                 PageSize = 10,
-                Items = (!string.IsNullOrEmpty(searchString))
-                    ? await _itemService.GetWebPagesAsync(searchString)
-                    : await _itemService.GetWebPagesAsync()
+                WebPages = (!string.IsNullOrEmpty(currentFilter))
+                    ? await _webPageService.GetWebPagesAsync(currentFilter)
+                    : await _webPageService.GetWebPagesAsync()
             };
 
 

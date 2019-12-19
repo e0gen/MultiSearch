@@ -13,7 +13,7 @@ namespace MultiSearch.DataAccess.Migrations
                 {
                     WebPageEntityId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Queue = table.Column<string>(nullable: true),
+                    Query = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Link = table.Column<string>(nullable: true),
                     Snippet = table.Column<string>(nullable: true),

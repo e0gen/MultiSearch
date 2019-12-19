@@ -7,12 +7,12 @@ namespace MultiSearch.Web.Models
     {
         public SearchViewModel()
         {
-            Items = new List<WebPage>();
+            WebPages = new List<WebPage>();
         }
 
-        public IList<WebPage> Items { get; set; }
-        public string Queue { get; set; }
+        public IList<WebPage> WebPages { get; set; }
+        public string Query { get; set; }
 
-        public override string Title => string.IsNullOrEmpty(Queue) ? "Search" : $"{Queue}";
+        public override string Title => string.IsNullOrEmpty(Query) ? "Search" : $"{Query}";
     }
 }

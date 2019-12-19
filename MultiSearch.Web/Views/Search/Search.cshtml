@@ -4,23 +4,22 @@
 }
 @using (Html.BeginForm("Search", "Search", FormMethod.Get, new { @class = "row" }))
 {
-    //@Html.TextBox("q", null, new { style = "width:450px" })
-    <input type="search" style="width:450px; margin-top:16px;" placeholder="Search with fastest engine" name="q">
-    <button type="submit" class="button button-primary">Search</button>
+    <input type="search" style="width:450px; margin-top:16px;" value="@Model.Query" placeholder="Search with fastest engine" name="q">
+    <button type="submit" class="button button-primary" style="padding-top: 1px;">Search</button>
 }
 
-@foreach (var item in Model.Items)
+@foreach (var wp in Model.WebPages)
 {
     <div class="row">
-        <div class="one columns"><b>@Html.DisplayFor(modelItem => item.Engine)</b></div>
+        <div class="one columns"><b>@Html.DisplayFor(modelItem => wp.Engine)</b></div>
         <div class="eleven columns">
-            <a href="@item.Link">
-                <b>@Html.DisplayFor(modelItem => item.Title)</b><br>
+            <a href="@wp.Link">
+                <b>@Html.DisplayFor(modelItem => wp.Title)</b><br>
             </a>
             <span style="color: green;">
-                @Html.DisplayFor(modelItem => item.Link)
+                @Html.DisplayFor(modelItem => wp.Link)
             </span>
-            <p>@Html.DisplayFor(modelItem => item.Snippet)</p>
+            <p>@Html.DisplayFor(modelItem => wp.Snippet)</p>
         </div>
     </div>
 }

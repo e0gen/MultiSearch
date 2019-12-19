@@ -14,14 +14,15 @@ namespace MultiSearch.Tests
         [Test]
         public async Task AddWebPageToDbAsync()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<WorkDbContext>()
                 .UseInMemoryDatabase(databaseName: "AddItemsToDb")
                 .Options;
-
+            // Act
             using (var context = new WorkDbContext(options))
             {
-                var service = new WebPageService(context);
-                await service.AddWebPageAsync(new WebPage("Sample", "Sample", "Sample", "Sample", "Sample"));
+                var sut = new WebPageService(context);
+                await sut.AddWebPageAsync(new WebPage("Sample", "Sample", "Sample", "Sample", "Sample"));
                 await context.SaveChangesAsync();
             }
 
@@ -35,11 +36,12 @@ namespace MultiSearch.Tests
         [Test]
         public async Task FilterWebPagesAsync()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<WorkDbContext>()
                 .UseInMemoryDatabase(databaseName: "FindSearches")
                 .Options;
 
-            // Insert seed data into the database using one instance of the context
+            // Act
             using (var context = new WorkDbContext(options))
             {
                 context.WebPages.Add(new WebPageEntity("My cat", "AAA", "AAA", "AAA", "Google"));
@@ -48,11 +50,11 @@ namespace MultiSearch.Tests
                 context.SaveChanges();
             }
 
-            // Use a clean instance of the context to run the test
+            // Assert
             using (var context = new WorkDbContext(options))
             {
-                var service = new WebPageService(context);
-                var result = await service.GetWebPagesAsync("cat");
+                var sut = new WebPageService(context);
+                var result = await sut.GetWebPagesAsync("cat");
                 Assert.AreEqual(2, result.Count);
             }
         }
