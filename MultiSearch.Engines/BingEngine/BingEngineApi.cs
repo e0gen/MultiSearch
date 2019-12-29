@@ -3,8 +3,10 @@ using MultiSearch.Domain.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MultiSearch.Engines
@@ -26,7 +28,26 @@ namespace MultiSearch.Engines
 
         public string SearchUri(string query, int page)
         {
-            return $"{uriBase}/search?q={Uri.EscapeDataString(query)}";
+            page--;
+            return $"{uriBase}/search?q={Uri.EscapeDataString(query)}&first={page * 10 + 1}";
+        }
+
+        public async Task<IList<WebPage>> SearchAsync(string query, int page)
+        {
+            List<WebPage> result = new List<WebPage>();
+            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page));
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                BingCustomSearchResponse bingResponse = JsonConvert.DeserializeObject<BingCustomSearchResponse>(data);
+
+                result = bingResponse.webPages.value
+                    .Select(webPage =>
+                        new WebPage(query, webPage.name, HttpUtility.UrlDecode(webPage.url), webPage.snippet,
+                            searchTag))
+                    .ToList();
+            }
+            return result;
         }
 
         public IEnumerable<WebPage> Search(string query, int page)
