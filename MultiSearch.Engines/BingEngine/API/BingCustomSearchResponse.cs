@@ -5,31 +5,31 @@ namespace MultiSearch.Engines
     public class BingCustomSearchResponse
     {
         public string _type { get; set; }
-        public BingWebPages webPages { get; set; }
+        public BingWebPages WebPages { get; set; }
     }
 
     public class BingWebPages
     {
-        public string webSearchUrl { get; set; }
-        public int totalEstimatedMatches { get; set; }
-        public BingWebPage[] value { get; set; }
+        public string WebSearchUrl { get; set; }
+        public int TotalEstimatedMatches { get; set; }
+        public BingWebPage[] Value { get; set; }
     }
 
     public class BingWebPage
     {
-        public string name { get; set; }
-        public string url { get; set; }
-        public string displayUrl { get; set; }
-        public string snippet { get; set; }
-        public DateTime dateLastCrawled { get; set; }
-        public string cachedPageUrl { get; set; }
-        public BingOpenGraphImage openGraphImage { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string DisplayUrl { get; set; }
+        public string Snippet { get; set; }
+        public DateTime DateLastCrawled { get; set; }
+        public string CachedPageUrl { get; set; }
+        public BingOpenGraphImage OpenGraphImage { get; set; }
     }
 
     public class BingOpenGraphImage
     {
-        public string contentUrl { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
+        public string ContentUrl { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
     }
 }
