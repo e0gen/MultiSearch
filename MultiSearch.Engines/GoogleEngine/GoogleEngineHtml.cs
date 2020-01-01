@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MultiSearch.Engines
@@ -25,23 +27,27 @@ namespace MultiSearch.Engines
 
         public string SearchUri(string query, int page)
         {
-            return $"{uriBase}/search?q={Uri.EscapeDataString(query)}&start={page}";
+            var sb = new StringBuilder(uriBase);
+            sb.AppendFormat($"/search?q={Uri.EscapeDataString(query)}");
+            if (page > 1)
+                sb.AppendFormat($"&start={page}");
+            return sb.ToString();
         }
-
-        public IEnumerable<WebPage> Search(string query, int page)
+        
+        public async Task<IList<WebPage>> SearchAsync(string query, int page)
         {
-            HttpResponseMessage response = _client.GetAsync(SearchUri(query, page)).Result;
+            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page));
             if (response.IsSuccessStatusCode)
             {
-                string data = response.Content.ReadAsStringAsync().Result;
-
+                string data = await response.Content.ReadAsStringAsync();
                 var doc = new HtmlDocument();
                 doc.LoadHtml(data);
+
                 HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//div[@class='g']");
 
                 if (nodes != null)
-                    foreach (HtmlNode node in nodes)
-                    {
+                    return nodes.Select(node => {
+
                         var titleNode = node.Descendants("h3").Where(x => x.Attributes.Contains("class"))
                             .FirstOrDefault(x => x.Attributes["class"].Value.Contains("LC20lb"));
                         var linkNode = node.Descendants("a")
@@ -49,13 +55,15 @@ namespace MultiSearch.Engines
                         var snippetNode = node.Descendants("span").Where(x => x.Attributes.Contains("class"))
                             .FirstOrDefault(x => x.Attributes["class"].Value.Contains("st"));
 
-                        var tiltle = HttpUtility.HtmlDecode(titleNode?.InnerText);
+                        var title = HttpUtility.HtmlDecode(titleNode?.InnerText);
                         var link = HttpUtility.HtmlDecode(linkNode?.Attributes["href"].Value);
                         var snippet = HttpUtility.HtmlDecode(snippetNode?.InnerText);
 
-                        yield return new WebPage(query, tiltle, link, snippet, searchTag);
-                    }
+                        return new WebPage(query, title, link, snippet, searchTag);
+                    })
+                    .ToList();
             }
+            return new List<WebPage>();
         }
     }
 }

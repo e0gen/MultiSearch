@@ -3,6 +3,9 @@ using MultiSearch.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
 
@@ -21,6 +24,8 @@ namespace MultiSearch.Engines
         private readonly string _filter;
         private readonly string _groupby;
 
+        private readonly HttpClient _client;
+
         public YandexEngineApi(string apiUser, string apiKey)
         {
             _apiUser = apiUser;
@@ -29,33 +34,48 @@ namespace MultiSearch.Engines
             _sortby = "rlv";
             _filter = "strict";
             _groupby = "attr%3D%22%22.mode%3Dflat.groups-on-page%3D10.docs-in-group%3D1";
+            _client = new HttpClient();
         }
 
         public string SearchUri(string query, int page)
         {
-            return $"{uriBase}/search/xml?user={_apiUser}&key={_apiKey}&query={Uri.EscapeDataString(query)}&l10n={_l10n}&sortby={_sortby}&filter={_filter}&groupby={_groupby}&page={page}";
+            var sb = new StringBuilder(uriBase);
+            sb.Append($"/search/xml?");
+            sb.AppendFormat($"user={_apiUser}");
+            sb.AppendFormat($"&key={_apiKey}");
+            sb.AppendFormat($"&query={Uri.EscapeDataString(query)}");
+            sb.AppendFormat($"&l10n={_l10n}");
+            sb.AppendFormat($"&sortby={_sortby}");
+            sb.AppendFormat($"&filter={_filter}");
+            sb.AppendFormat($"&groupby={_groupby}");
+            if (page > 1)
+                sb.AppendFormat($"&page={page}");
+            return sb.ToString();
         }
 
-        public IEnumerable<WebPage> Search(string query, int page)
+        public async Task<IList<WebPage>> SearchAsync(string query, int page)
         {
-            var url = SearchUri(query, page);
-            var response = XDocument.Load(url);
+            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page));
+            if (response.IsSuccessStatusCode)
+            {
+                var stream = await response.Content.ReadAsStreamAsync();
+                var doc = XDocument.Load(stream);
 
-            var result = response.Root
-                .Elements("response")
-                .Elements("results")
-                .Elements("grouping")
-                .Elements("group")
-                .Elements("doc")
-                .Select(x => new WebPage(
-                    query,
-                    x.Element("title")?.Value,
-                    HttpUtility.UrlDecode(x.Element("url")?.Value),
-                    x.Element("headline")?.Value,
-                    searchTag))
-                .ToList();
-
-            return result;
+                return doc.Root
+                    .Elements("response")
+                    .Elements("results")
+                    .Elements("grouping")
+                    .Elements("group")
+                    .Elements("doc")
+                    .Select(x => new WebPage(
+                        query,
+                        x.Element("title")?.Value,
+                        HttpUtility.UrlDecode(x.Element("url")?.Value),
+                        x.Element("headline")?.Value,
+                        searchTag))
+                    .ToList();
+            }
+            return new List<WebPage>();
         }
     }
 }

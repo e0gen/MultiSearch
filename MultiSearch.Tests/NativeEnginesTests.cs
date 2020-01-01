@@ -4,6 +4,7 @@ using MultiSearch.Domain.Models;
 using MultiSearch.Engines;
 using NUnit.Framework;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MultiSearch.Tests
 {
@@ -37,61 +38,61 @@ namespace MultiSearch.Tests
         }
 
         [Test]
-        public void YandexEngineApi()
+        public async Task SearchAsyncByYandexEngineApi()
         {
             ISearchEngine sut = new YandexEngineApi(_yandexApiUser, _yandexApiKey);
 
-            var res = sut.Search(_query).ToList();
+            var res = await sut.SearchAsync(_query);
 
             Assert.Greater(res.Count, 0);
         }
 
         [Test]
-        public void YandexEngineHtml()
+        public async Task SearchAsyncByYandexEngineHtml()
         {
             ISearchEngine sut = new YandexEngineHtml();
 
-            var res = sut.Search(_query).ToList();
+            var res = await sut.SearchAsync(_query);
 
             Assert.Greater(res.Count, 0);
         }
 
         [Test]
-        public void BingEngineApi()
+        public async Task SearchAsyncByBingEngineApi()
         {
             ISearchEngine sut = new BingEngineApi(_bingApiKey);
 
-            var res = sut.Search(_query).ToList();
+            var res = await sut.SearchAsync(_query);
 
             Assert.Greater(res.Count, 0);
         }
 
         [Test]
-        public void BingEngineHtml()
+        public async Task SearchAsyncByBingEngineHtml()
         {
             ISearchEngine sut = new BingEngineHtml();
 
-            var res = sut.Search(_query).ToList();
+            var res = await sut.SearchAsync(_query);
 
             Assert.Greater(res.Count, 0);
         }
 
         [Test]
-        public void GoogleSearchApi()
+        public async Task SearchAsyncByGoogleEngineApi()
         {
             ISearchEngine sut = new GoogleEngineApi(_googleApiKey, _googleSearchEngineId);
 
-            var res = sut.Search(_query).ToList();
+            var res = await sut.SearchAsync(_query);
 
             Assert.Greater(res.Count, 0);
         }
 
         [Test]
-        public void GoogleSearchHtml()
+        public async Task SearchAsyncByGoogleSearchHtml()
         {
             ISearchEngine sut = new GoogleEngineHtml();
 
-            var res = sut.Search(_query).ToList();
+            var res = await sut.SearchAsync(_query);
 
             Assert.Greater(res.Count, 0);
         }

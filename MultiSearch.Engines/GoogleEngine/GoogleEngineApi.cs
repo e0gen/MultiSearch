@@ -4,6 +4,8 @@ using Google.Apis.Services;
 using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 
@@ -24,19 +26,20 @@ namespace MultiSearch.Engines
             _customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
         }
 
-        public IEnumerable<WebPage> Search(string query, int page)
+        public async Task<IList<WebPage>> SearchAsync(string query, int page)
         {
             var listRequest = _customSearchService.Cse.List(query);
             listRequest.Cx = _searchEngineId;
+            listRequest.Start = (page - 1) * 10 + 1;
 
-            page--;
-            listRequest.Start = page * 10 + 1;
-            IList<Result> paging = listRequest.Execute().Items;
+            var data = await listRequest.ExecuteAsync();
+            IList<Result> paging = data.Items;
             if (paging != null)
-                foreach (var item in paging)
-                {
-                    yield return new WebPage(query, item.Title, HttpUtility.UrlDecode(item.Link), item.Snippet, searchTag);
-                }
+                return paging
+                    .Select(item =>
+                        new WebPage(query, item.Title, HttpUtility.UrlDecode(item.Link), item.Snippet, searchTag))
+                    .ToList();
+            return new List<WebPage>();
         }
     }
 }
