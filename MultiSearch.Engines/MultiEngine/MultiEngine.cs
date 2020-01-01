@@ -15,32 +15,12 @@ namespace MultiSearch.Engines
             _searchers = searchers;
         }
 
-        public IEnumerable<WebPage> Search(string query, int page)
+
+        public async Task<IList<WebPage>> SearchAsync(string query, int page)
         {
-            var results = new List<WebPage>();
-            long minElapsed = long.MaxValue;
+            var completedTask = await Task.WhenAny(_searchers.Select(x => x.SearchAsync(query, page)));
 
-            object lockObj = new object();
-            Parallel.ForEach(_searchers,
-                (searcher) =>
-                {
-                    var watch = System.Diagnostics.Stopwatch.StartNew();
-                    var tmpResult = searcher.Search(query, page).Take(10).ToList();
-                    if (tmpResult.Count < 10)
-                        tmpResult.AddRange(searcher.Search(query, page++).Take(10 - tmpResult.Count));
-                    watch.Stop();
-                    var elapsed = watch.ElapsedMilliseconds;
-
-                    lock (lockObj)
-                    {
-                        if (elapsed < minElapsed && tmpResult.Count > 0)
-                        {
-                            minElapsed = elapsed;
-                            results = tmpResult;
-                        }
-                    }
-                });
-            return results;
+            return await completedTask;
         }
     }
 }

@@ -3,8 +3,11 @@ using MultiSearch.Domain.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MultiSearch.Engines
@@ -26,22 +29,27 @@ namespace MultiSearch.Engines
 
         public string SearchUri(string query, int page)
         {
-            return $"{uriBase}/search?q={Uri.EscapeDataString(query)}";
+            var sb = new StringBuilder(uriBase);
+            sb.AppendFormat($"/search?q={Uri.EscapeDataString(query)}");
+            if (page > 1)
+                sb.AppendFormat($"&first={(page - 1) * 10 + 1}");
+            return sb.ToString();
         }
 
-        public IEnumerable<WebPage> Search(string query, int page)
+        public async Task<IList<WebPage>> SearchAsync(string query, int page)
         {
-            HttpResponseMessage response = _client.GetAsync(SearchUri(query, page)).Result;
+            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page));
             if (response.IsSuccessStatusCode)
             {
-                string data = response.Content.ReadAsStringAsync().Result;
+                string data = await response.Content.ReadAsStringAsync();
                 BingCustomSearchResponse bingResponse = JsonConvert.DeserializeObject<BingCustomSearchResponse>(data);
 
-                foreach (var webPage in bingResponse.webPages.value)
-                {
-                    yield return new WebPage(query, webPage.name, HttpUtility.UrlDecode(webPage.url), webPage.snippet, searchTag);
-                }
+                return bingResponse.WebPages.Value
+                    .Select(webPage =>
+                        new WebPage(query, webPage.Name, HttpUtility.UrlDecode(webPage.Url), webPage.Snippet, searchTag))
+                    .ToList();
             }
+            return new List<WebPage>();
         }
     }
 }

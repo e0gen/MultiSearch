@@ -32,7 +32,7 @@ namespace MultiSearch.Web.Controllers
 
             var vm = new SearchViewModel() { Query = q };
 
-            List<WebPage> results = _searchEngine.Search(q).ToList();
+            var results = await _searchEngine.SearchAsync(q);
 
             foreach (var wp in results)
             {

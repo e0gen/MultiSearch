@@ -5,6 +5,7 @@ using MultiSearch.Web.Controllers;
 using NUnit.Framework;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MultiSearch.Tests
 {
@@ -48,38 +49,38 @@ namespace MultiSearch.Tests
         public void SearchControllerCallSearchOnce()
         {
             // Arrange
-            _searcher.Setup(x => x.Search(It.IsAny<string>(), 1))
-                .Returns(searchResult);
+            _searcher.Setup(x => x.SearchAsync(It.IsAny<string>(), 1))
+                .ReturnsAsync(searchResult);
             var controller = new SearchController(_searcher.Object, _dataServive.Object);
 
             // Act
             var result = controller.Search(_query).Result as ViewResult;
 
             // Assert
-            _searcher.Verify(m => m.Search(It.Is<string>(c => c == _query), 1), Times.Once);
+            _searcher.Verify(m => m.SearchAsync(It.Is<string>(c => c == _query), 1), Times.Once);
         }
 
         [Test]
         public void SearchControllerNotCallSearchOnceIfNothingQuered()
         {
             // Arrange
-            _searcher.Setup(x => x.Search(null, 1))
-                .Returns(emptyResult);
+            _searcher.Setup(x => x.SearchAsync(null, 1))
+                .ReturnsAsync(emptyResult);
             var controller = new SearchController(_searcher.Object, _dataServive.Object);
 
             // Act
             var result = controller.Search(null).Result as ViewResult;
 
             // Assert
-            _searcher.Verify(m => m.Search(null, 1), Times.Never);
+            _searcher.Verify(m => m.SearchAsync(null, 1), Times.Never);
         }
 
         [Test]
         public void SearchControllerCallSaveResult()
         {
             // Arrange
-            _searcher.Setup(x => x.Search(It.IsAny<string>(), 1))
-                .Returns(searchResult);
+            _searcher.Setup(x => x.SearchAsync(It.IsAny<string>(), 1))
+                .ReturnsAsync(searchResult);
             var controller = new SearchController(_searcher.Object, _dataServive.Object);
 
             // Act
@@ -93,8 +94,8 @@ namespace MultiSearch.Tests
         public void SearchControllerNotSaveResultIfNothingQuered()
         {
             // Arrange
-            _searcher.Setup(x => x.Search(null, 1))
-                .Returns(emptyResult);
+            _searcher.Setup(x => x.SearchAsync(null, 1))
+                .ReturnsAsync(emptyResult);
             var controller = new SearchController(_searcher.Object, _dataServive.Object);
 
             // Act
@@ -108,8 +109,8 @@ namespace MultiSearch.Tests
         public void SearchControllerCallAddResult()
         {
             // Arrange
-            _searcher.Setup(x => x.Search(It.IsAny<string>(), 1))
-                .Returns(searchResult);
+            _searcher.Setup(x => x.SearchAsync(It.IsAny<string>(), 1))
+                .ReturnsAsync(searchResult);
             var controller = new SearchController(_searcher.Object, _dataServive.Object);
 
             // Act
@@ -124,8 +125,8 @@ namespace MultiSearch.Tests
         public void SearchControllerNotCallAddResultIfNothingQuered()
         {
             // Arrange
-            _searcher.Setup(x => x.Search(null, 1))
-                .Returns(emptyResult);
+            _searcher.Setup(x => x.SearchAsync(null, 1))
+                .ReturnsAsync(emptyResult);
             var controller = new SearchController(_searcher.Object, _dataServive.Object);
 
             // Act
