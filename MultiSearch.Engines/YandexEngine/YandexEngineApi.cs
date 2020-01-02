@@ -26,7 +26,7 @@ namespace MultiSearch.Engines
 
         private readonly HttpClient _client;
 
-        public YandexEngineApi(string apiUser, string apiKey)
+        public YandexEngineApi(string apiUser, string apiKey, HttpClient httpClient)
         {
             _apiUser = apiUser;
             _apiKey = apiKey;
@@ -34,7 +34,7 @@ namespace MultiSearch.Engines
             _sortby = "rlv";
             _filter = "strict";
             _groupby = "attr%3D%22%22.mode%3Dflat.groups-on-page%3D10.docs-in-group%3D1";
-            _client = new HttpClient();
+            _client = httpClient;
         }
 
         public string SearchUri(string query, int page)

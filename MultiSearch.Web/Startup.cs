@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using MultiSearch.DataAccess;
 using MultiSearch.Domain.Contracts;
 using MultiSearch.Engines;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace MultiSearch.Web
 {
@@ -19,40 +24,61 @@ namespace MultiSearch.Web
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             services.AddDbContext<WorkDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("MultiSearchDB")));
 
-            //DataAccess provider
-            services.AddScoped<IWebPageService, WebPageService>();
+            var builder = new ContainerBuilder();
+            
+            builder.RegisterType<WebPageService>().As<IWebPageService>()
+                .SingleInstance();
+            builder.Register(ctx => new HttpClient())
+                .InstancePerDependency();
 
-            var enginesSettingsSection = Configuration.GetSection("EnginesApiSettings");
-            var enginesSettings = enginesSettingsSection.Get<EnginesApiSettings>();
+            builder.RegisterType<GoogleEngineHtml>()
+                .Keyed<ISearchEngine>(MultiEngineProfile.Html)
+                .Keyed<ISearchEngine>(MultiEngineProfile.Custom)
+                .SingleInstance();
+            builder.RegisterType<BingEngineHtml>()
+                .Keyed<ISearchEngine>(MultiEngineProfile.Html)
+                .SingleInstance();
+            builder.RegisterType<YandexEngineHtml>()
+                .Keyed<ISearchEngine>(MultiEngineProfile.Html)
+                .SingleInstance();
 
             //Api versions of engines requiring setting up configuration
-            services.AddSingleton(_ =>
-                new GoogleEngineApi(enginesSettings.GoogleKey, enginesSettings.GoogleSearchEngineId));
-            services.AddSingleton(_ =>
-                new BingEngineApi(enginesSettings.BingKey));
-            services.AddSingleton(_ =>
-                new YandexEngineApi(enginesSettings.YandexUser, enginesSettings.YandexKey));
+            var enginesSettingsSection = Configuration.GetSection("EnginesApiSettings");
+            var enginesSettings = enginesSettingsSection.Get<EnginesApiSettings>();
+            
+            builder.RegisterType<GoogleEngineApi>()
+                .Keyed<ISearchEngine>(MultiEngineProfile.Api)
+                .WithParameter("apiKey", enginesSettings.GoogleKey)
+                .WithParameter("searchEngineId", enginesSettings.GoogleSearchEngineId)
+                .SingleInstance();
+            builder.RegisterType<BingEngineApi>()
+                .Keyed<ISearchEngine>(MultiEngineProfile.Api)
+                .WithParameter("apiKey", enginesSettings.BingKey)
+                .SingleInstance();
+            builder.RegisterType<YandexEngineApi>()
+                .Keyed<ISearchEngine>(MultiEngineProfile.Api)
+                .WithParameter("apiUser", enginesSettings.YandexUser)
+                .WithParameter("apiKey", enginesSettings.YandexKey)
+                .SingleInstance();
 
-            //Account free versions of engines
-            services.AddSingleton<YandexEngineHtml>();
-            services.AddSingleton<BingEngineHtml>();
-            services.AddSingleton<GoogleEngineHtml>();
+            builder.RegisterType<MultiEngine>().As<ISearchEngine>()
+                .WithParameter(
+                    (p, c) => true,
+                    (p, c) => c.ResolveKeyed<IEnumerable<ISearchEngine>>(MultiEngineProfile.Html)
+                    )
+                .SingleInstance();
+            
+            builder.Populate(services);
+            var container = builder.Build();
 
-            //Multi engine. Inject the desired engines
-            services.AddSingleton<ISearchEngine>(provider =>
-                new MultiEngine(new ISearchEngine[] {
-                    provider.GetRequiredService<YandexEngineHtml>(),
-                    provider.GetRequiredService<BingEngineHtml>(),
-                    provider.GetRequiredService<GoogleEngineHtml>(),
-                    }));
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            return new AutofacServiceProvider(container);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

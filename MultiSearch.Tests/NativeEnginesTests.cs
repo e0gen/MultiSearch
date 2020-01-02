@@ -3,7 +3,7 @@ using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
 using MultiSearch.Engines;
 using NUnit.Framework;
-using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MultiSearch.Tests
@@ -40,7 +40,7 @@ namespace MultiSearch.Tests
         [Test]
         public async Task SearchAsyncByYandexEngineApi()
         {
-            ISearchEngine sut = new YandexEngineApi(_yandexApiUser, _yandexApiKey);
+            ISearchEngine sut = new YandexEngineApi(_yandexApiUser, _yandexApiKey, new HttpClient());
 
             var res = await sut.SearchAsync(_query);
 
@@ -50,7 +50,7 @@ namespace MultiSearch.Tests
         [Test]
         public async Task SearchAsyncByYandexEngineHtml()
         {
-            ISearchEngine sut = new YandexEngineHtml();
+            ISearchEngine sut = new YandexEngineHtml(new HttpClient());
 
             var res = await sut.SearchAsync(_query);
 
@@ -60,7 +60,7 @@ namespace MultiSearch.Tests
         [Test]
         public async Task SearchAsyncByBingEngineApi()
         {
-            ISearchEngine sut = new BingEngineApi(_bingApiKey);
+            ISearchEngine sut = new BingEngineApi(_bingApiKey, new HttpClient());
 
             var res = await sut.SearchAsync(_query);
 
@@ -70,7 +70,7 @@ namespace MultiSearch.Tests
         [Test]
         public async Task SearchAsyncByBingEngineHtml()
         {
-            ISearchEngine sut = new BingEngineHtml();
+            ISearchEngine sut = new BingEngineHtml(new HttpClient());
 
             var res = await sut.SearchAsync(_query);
 
@@ -90,7 +90,7 @@ namespace MultiSearch.Tests
         [Test]
         public async Task SearchAsyncByGoogleSearchHtml()
         {
-            ISearchEngine sut = new GoogleEngineHtml();
+            ISearchEngine sut = new GoogleEngineHtml(new HttpClient());
 
             var res = await sut.SearchAsync(_query);
 

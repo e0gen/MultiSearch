@@ -19,10 +19,10 @@ namespace MultiSearch.Engines
 
         private readonly string _apiKey;
         private readonly HttpClient _client;
-        public BingEngineApi(string apiKey)
+        public BingEngineApi(string apiKey, HttpClient httpClient)
         {
             _apiKey = apiKey;
-            _client = new HttpClient();
+            _client = httpClient;
             _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
