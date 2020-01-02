@@ -18,9 +18,9 @@ namespace MultiSearch.Engines
 
         private readonly HttpClient _client;
 
-        public YandexEngineHtml()
+        public YandexEngineHtml(HttpClient httpClient)
         {
-            _client = new HttpClient();
+            _client = httpClient;
         }
 
         public string SearchUri(string query, int page)
