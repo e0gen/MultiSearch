@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiSearch.Domain.Contracts;
-using MultiSearch.Domain.Models;
 using MultiSearch.Web.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MultiSearch.Web.Controllers
 {
@@ -26,13 +22,13 @@ namespace MultiSearch.Web.Controllers
         }
 
         [Route("/search")]
-        public async Task<IActionResult> Search([FromQuery]string q)
+        public async Task<IActionResult> Search([FromQuery]string q, CancellationToken ct)
         {
             if (string.IsNullOrEmpty(q)) return View(new SearchViewModel());
 
             var vm = new SearchViewModel() { Query = q };
 
-            var results = await _searchEngine.SearchAsync(q);
+            var results = await _searchEngine.SearchAsync(ct, q);
 
             foreach (var wp in results)
             {

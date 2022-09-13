@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Text;
+using System.Threading;
 
 namespace MultiSearch.Engines
 {
@@ -32,9 +33,9 @@ namespace MultiSearch.Engines
             return sb.ToString();
         }
 
-        public async Task<IList<WebPage>> SearchAsync(string query, int page)
+        public async Task<IList<WebPage>> SearchAsync(CancellationToken ct, string query, int page)
         {
-            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page));
+            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page), ct);
             if (response.IsSuccessStatusCode)
             {
                 string data = await response.Content.ReadAsStringAsync();

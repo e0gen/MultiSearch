@@ -4,6 +4,7 @@ using MultiSearch.Domain.Models;
 using MultiSearch.Engines;
 using NUnit.Framework;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MultiSearch.Tests
@@ -42,7 +43,7 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new YandexEngineApi(_yandexApiUser, _yandexApiKey, new HttpClient());
 
-            var res = await sut.SearchAsync(_query);
+            var res = await sut.SearchAsync(new CancellationTokenSource().Token, _query);
 
             Assert.Greater(res.Count, 0);
         }
@@ -52,7 +53,7 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new YandexEngineHtml(new HttpClient());
 
-            var res = await sut.SearchAsync(_query);
+            var res = await sut.SearchAsync(new CancellationTokenSource().Token, _query);
 
             Assert.Greater(res.Count, 0);
         }
@@ -62,7 +63,7 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new BingEngineApi(_bingApiKey, new HttpClient());
 
-            var res = await sut.SearchAsync(_query);
+            var res = await sut.SearchAsync(new CancellationTokenSource().Token, _query);
 
             Assert.Greater(res.Count, 0);
         }
@@ -72,7 +73,7 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new BingEngineHtml(new HttpClient());
 
-            var res = await sut.SearchAsync(_query);
+            var res = await sut.SearchAsync(new CancellationTokenSource().Token, _query);
 
             Assert.Greater(res.Count, 0);
         }
@@ -82,7 +83,7 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new GoogleEngineApi(_googleApiKey, _googleSearchEngineId);
 
-            var res = await sut.SearchAsync(_query);
+            var res = await sut.SearchAsync(new CancellationTokenSource().Token, _query);
 
             Assert.Greater(res.Count, 0);
         }
@@ -92,7 +93,7 @@ namespace MultiSearch.Tests
         {
             ISearchEngine sut = new GoogleEngineHtml(new HttpClient());
 
-            var res = await sut.SearchAsync(_query);
+            var res = await sut.SearchAsync(new CancellationTokenSource().Token, _query);
 
             Assert.Greater(res.Count, 0);
         }

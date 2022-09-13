@@ -5,6 +5,7 @@ using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -26,14 +27,14 @@ namespace MultiSearch.Engines
             _customSearchService = new CustomsearchService(new BaseClientService.Initializer { ApiKey = apiKey });
         }
 
-        public async Task<IList<WebPage>> SearchAsync(string query, int page)
+        public async Task<IList<WebPage>> SearchAsync(CancellationToken ct, string query, int page)
         {
             var listRequest = _customSearchService.Cse.List();
             listRequest.Q = query;
             listRequest.Cx = _searchEngineId;
             listRequest.Start = (page - 1) * 10 + 1;
 
-            var data = await listRequest.ExecuteAsync();
+            var data = await listRequest.ExecuteAsync(ct);
             IList<Result> paging = data.Items;
             if (paging != null)
                 return paging

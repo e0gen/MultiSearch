@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
@@ -53,9 +54,9 @@ namespace MultiSearch.Engines
             return sb.ToString();
         }
 
-        public async Task<IList<WebPage>> SearchAsync(string query, int page)
+        public async Task<IList<WebPage>> SearchAsync(CancellationToken ct, string query, int page)
         {
-            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page));
+            HttpResponseMessage response = await _client.GetAsync(SearchUri(query, page), ct);
             if (response.IsSuccessStatusCode)
             {
                 var stream = await response.Content.ReadAsStreamAsync();
