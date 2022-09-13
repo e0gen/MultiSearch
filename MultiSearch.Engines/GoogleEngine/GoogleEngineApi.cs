@@ -28,7 +28,8 @@ namespace MultiSearch.Engines
 
         public async Task<IList<WebPage>> SearchAsync(string query, int page)
         {
-            var listRequest = _customSearchService.Cse.List(query);
+            var listRequest = _customSearchService.Cse.List();
+            listRequest.Q = query;
             listRequest.Cx = _searchEngineId;
             listRequest.Start = (page - 1) * 10 + 1;
 

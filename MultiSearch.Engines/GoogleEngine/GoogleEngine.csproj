@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>MultiSearch.Engines</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.42.0.1369" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.17" />
+    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.49.0.2084" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.45" />
   </ItemGroup>
 
   <ItemGroup>
