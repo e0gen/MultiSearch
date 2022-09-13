@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MultiSearch.DataAccess.Migrations
+namespace MultiSearch.Infrastructure.Migrations
 {
     public partial class CreateMultiSearchDB : Migration
     {

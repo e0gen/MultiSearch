@@ -1,6 +1,6 @@
 ﻿using MultiSearch.Domain.Models;
 
-namespace MultiSearch.DataAccess.Entities
+namespace MultiSearch.Infrastructure.Entities
 {
     public class WebPageEntity : WebPage
     {

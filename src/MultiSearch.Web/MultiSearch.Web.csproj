@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MultiSearch.Infrastructure\MultiSearch.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Domain\MultiSearch.Domain.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\BingEngine\BingEngine.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\GoogleEngine\GoogleEngine.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\MultiEngine\MultiEngine.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\YandexEngine\YandexEngine.csproj" />
+  </ItemGroup>
+
+</Project>

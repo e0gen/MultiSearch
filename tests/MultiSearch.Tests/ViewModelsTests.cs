@@ -1,10 +1,6 @@
 ﻿using MultiSearch.Web.Models;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace MultiSearch.Tests
+namespace MultiSearch.UnitTests
 {
     [TestFixture]
     public class ViewModelsTests

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MultiSearch.Domain\MultiSearch.Domain.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Domain\MultiSearch.Domain.csproj" />
   </ItemGroup>
 
 </Project>

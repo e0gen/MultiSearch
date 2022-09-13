@@ -1,12 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MultiSearch.DataAccess;
-using MultiSearch.DataAccess.Entities;
+﻿using MultiSearch.Infrastructure;
+using MultiSearch.Infrastructure.Entities;
 using MultiSearch.Domain.Models;
-using NUnit.Framework;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace MultiSearch.Tests
+namespace MultiSearch.UnitTests
 {
     [TestFixture]
     class DataAccessTests

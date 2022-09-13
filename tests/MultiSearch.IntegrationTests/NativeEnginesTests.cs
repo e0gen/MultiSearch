@@ -1,13 +1,7 @@
-using Microsoft.Extensions.Configuration;
 using MultiSearch.Domain.Contracts;
-using MultiSearch.Domain.Models;
 using MultiSearch.Engines;
-using NUnit.Framework;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace MultiSearch.Tests
+namespace MultiSearch.IntegrationTests
 {
     [TestFixture]
     public class NativeEnginesTests

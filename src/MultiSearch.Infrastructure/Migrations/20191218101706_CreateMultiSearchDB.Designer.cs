@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MultiSearch.DataAccess;
+using MultiSearch.Infrastructure;
 
-namespace MultiSearch.DataAccess.Migrations
+namespace MultiSearch.Infrastructure.Migrations
 {
     [DbContext(typeof(WorkDbContext))]
     [Migration("20191218101706_CreateMultiSearchDB")]

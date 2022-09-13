@@ -1,14 +1,9 @@
-﻿using Moq;
-using MultiSearch.Domain.Contracts;
+﻿using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
 using MultiSearch.Web.Controllers;
-using NUnit.Framework;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System.Threading;
 
-namespace MultiSearch.Tests
+namespace MultiSearch.UnitTests
 {
     [TestFixture]
     class ControllersTests

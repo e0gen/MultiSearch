@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+
+    <IsPublishable>False</IsPublishable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\BingEngine\BingEngine.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\GoogleEngine\GoogleEngine.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\MultiEngine\MultiEngine.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Engines\YandexEngine\YandexEngine.csproj" />
+    <ProjectReference Include="..\..\src\MultiSearch.Domain\MultiSearch.Domain.csproj" />
+	<ProjectReference Include="..\..\src\MultiSearch.Infrastructure\MultiSearch.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="testsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

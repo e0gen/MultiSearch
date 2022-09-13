@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MultiSearch.DataAccess.Entities;
+using MultiSearch.Infrastructure.Entities;
 
-namespace MultiSearch.DataAccess
+namespace MultiSearch.Infrastructure
 {
     public class WorkDbContext : DbContext
     {

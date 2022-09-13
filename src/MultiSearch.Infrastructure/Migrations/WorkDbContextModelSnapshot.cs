@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MultiSearch.DataAccess;
+using MultiSearch.Infrastructure;
 
-namespace MultiSearch.DataAccess.Migrations
+namespace MultiSearch.Infrastructure.Migrations
 {
     [DbContext(typeof(WorkDbContext))]
     partial class WorkDbContextModelSnapshot : ModelSnapshot

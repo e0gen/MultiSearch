@@ -1,32 +1,39 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.902
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleEngine", "MultiSearch.Engines\GoogleEngine\GoogleEngine.csproj", "{F92CFE1F-0726-48B4-8797-E874090B784F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C7D63E75-42B7-43F0-8E79-9E4F6842DA4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CC4FA329-97EE-4C37-BB0E-AC9B9FB0A5DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Domain", "src\MultiSearch.Domain\MultiSearch.Domain.csproj", "{2BAB7FAA-5052-4DD2-9B4F-3516319190F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Infrastructure", "src\MultiSearch.Infrastructure\MultiSearch.Infrastructure.csproj", "{6FFE4803-75DB-4755-A97A-B02FB882123B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Web", "src\MultiSearch.Web\MultiSearch.Web.csproj", "{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MultiSearch.Engines", "src\MultiSearch.Engines", "{67EC8F67-06D8-449C-AB04-59A30740F0C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingEngine", "src\MultiSearch.Engines\BingEngine\BingEngine.csproj", "{29C60305-80C6-4FAF-B339-BDA7B27BF459}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2BAB7FAA-5052-4DD2-9B4F-3516319190F3} = {2BAB7FAA-5052-4DD2-9B4F-3516319190F3}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Domain", "MultiSearch.Domain\MultiSearch.Domain.csproj", "{2BAB7FAA-5052-4DD2-9B4F-3516319190F3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Tests", "MultiSearch.Tests\MultiSearch.Tests.csproj", "{0C63A708-3B53-4282-9695-5D3A90ABBD96}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MultiSearch.Engines", "MultiSearch.Engines", "{67EC8F67-06D8-449C-AB04-59A30740F0C2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BingEngine", "MultiSearch.Engines\BingEngine\BingEngine.csproj", "{29C60305-80C6-4FAF-B339-BDA7B27BF459}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleEngine", "src\MultiSearch.Engines\GoogleEngine\GoogleEngine.csproj", "{F92CFE1F-0726-48B4-8797-E874090B784F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2BAB7FAA-5052-4DD2-9B4F-3516319190F3} = {2BAB7FAA-5052-4DD2-9B4F-3516319190F3}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexEngine", "MultiSearch.Engines\YandexEngine\YandexEngine.csproj", "{58AD6301-02DD-4D3E-9198-2795CA84B860}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexEngine", "src\MultiSearch.Engines\YandexEngine\YandexEngine.csproj", "{58AD6301-02DD-4D3E-9198-2795CA84B860}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.DataAccess", "MultiSearch.DataAccess\MultiSearch.DataAccess.csproj", "{6FFE4803-75DB-4755-A97A-B02FB882123B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiEngine", "src\MultiSearch.Engines\MultiEngine\MultiEngine.csproj", "{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Web", "MultiSearch.Web\MultiSearch.Web.csproj", "{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.UnitTests", "tests\MultiSearch.Tests\MultiSearch.UnitTests.csproj", "{0C63A708-3B53-4282-9695-5D3A90ABBD96}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiEngine", "MultiSearch.Engines\MultiEngine\MultiEngine.csproj", "{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSearch.IntegrationTests", "tests\MultiSearch.IntegrationTests\MultiSearch.IntegrationTests.csproj", "{D4F07D80-57B6-401C-996B-0CB816DD1788}"
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,15 +72,25 @@ Global
 		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4F07D80-57B6-401C-996B-0CB816DD1788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4F07D80-57B6-401C-996B-0CB816DD1788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4F07D80-57B6-401C-996B-0CB816DD1788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4F07D80-57B6-401C-996B-0CB816DD1788}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F92CFE1F-0726-48B4-8797-E874090B784F} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
+		{2BAB7FAA-5052-4DD2-9B4F-3516319190F3} = {C7D63E75-42B7-43F0-8E79-9E4F6842DA4E}
+		{0C63A708-3B53-4282-9695-5D3A90ABBD96} = {CC4FA329-97EE-4C37-BB0E-AC9B9FB0A5DD}
+		{67EC8F67-06D8-449C-AB04-59A30740F0C2} = {C7D63E75-42B7-43F0-8E79-9E4F6842DA4E}
 		{29C60305-80C6-4FAF-B339-BDA7B27BF459} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
 		{58AD6301-02DD-4D3E-9198-2795CA84B860} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
+		{6FFE4803-75DB-4755-A97A-B02FB882123B} = {C7D63E75-42B7-43F0-8E79-9E4F6842DA4E}
+		{8C03B2FD-CE9B-4C2C-8844-4DFAAD8C9525} = {C7D63E75-42B7-43F0-8E79-9E4F6842DA4E}
 		{A91680D0-97DF-4A1D-8EDC-E471F76E7C24} = {67EC8F67-06D8-449C-AB04-59A30740F0C2}
+		{D4F07D80-57B6-401C-996B-0CB816DD1788} = {CC4FA329-97EE-4C37-BB0E-AC9B9FB0A5DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F35A084-8ACB-470B-9610-83C2659C0F83}

@@ -1,6 +1,6 @@
 ﻿using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using MultiSearch.DataAccess;
+using MultiSearch.Infrastructure;
 using MultiSearch.Domain.Contracts;
 using MultiSearch.Engines;
 using MultiSearch.Web;
@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<WorkDbContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MultiSearchDB"))
+builder.Services.AddDbContext<WorkDbContext>(options =>
+    options.UseInMemoryDatabase(databaseName: "MultiSearchDB")
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("MultiSearchDB"))
 );
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());

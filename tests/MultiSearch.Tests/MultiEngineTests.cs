@@ -1,14 +1,9 @@
-﻿using Moq;
-using MultiSearch.Domain.Contracts;
+﻿using MultiSearch.Domain.Contracts;
 using MultiSearch.Domain.Models;
 using MultiSearch.Engines;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace MultiSearch.Tests
+
+namespace MultiSearch.UnitTests
 {
     [TestFixture]
     class MultiEngineTests
